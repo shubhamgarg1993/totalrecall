@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />	
+	    
+	<title>Total Recall</title>
+    
+    <link rel="stylesheet" href="lib/bootstrap.min.css">
+   
+<style  type="text/css">
+
+html
+    {
+        height: 100%;
+    }
+body
+{
+	margin: 0px;
+    background-color:black;
+}
+    
+h1{ margin:0px; color: white; text-align: center; padding-top:70%; }
+
+.warning
+    { 
+    background-color: #00c1ff;
+    z-index: 11; 
+    position: relative;
+    height: 100vh;
+    display:none;
+    }
+    
+    canvas
+    {
+       position: absolute;
+       z-index: 1;
+    }
+    
+    #formpage
+    {
+       background: url('assets/namebg.jpg?v=1');
+	   background-size: cover;
+	   background-position: center center;
+	   height: 100vh;    
+       display: none;
+	   
+    }
+    #form
+    {
+      width: 100%;
+      text-align: center;
+      padding-top: 20%;
+        
+    }
+    #name
+    {
+        display: table;
+        margin: auto;
+        width: 50%;
+        height: 8vh;
+        border: solid 0px black;
+        border-radius: 26px;
+        color: white;        
+        background: rgba(0, 0, 0, 0.5); 
+        text-align: center;
+    }
+    #startImg
+    {
+        display: table;
+        margin: auto;        
+        width: 20%;
+        cursor: pointer;
+    }
+    
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+    
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: red;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: red;
+}
+    #topButtons
+    {
+      float: right; 
+      margin-right:1%;
+      margin-top:1%;        
+      cursor: pointer;    
+    }
+   
+</style>
+
+
+</head>
+<body>
+    
+    <div id = "warning" class="warning"><h1>Please play the game in Landscape Mode</h1></div>   
+  
+ 
+
+    <script type="text/javascript" src="lib/jquery-3.3.1.slim.min.js"></script>
+    
+    <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+    
+    <script type="text/javascript" src="lib/phaser.min_2.13.1.js"></script>
+    <script type="text/javascript" src="lib/phaser-input.min.js"></script>
+    
+    <script type="text/javascript" src="js/utils.js"></script>
+    
+    <script type="text/javascript" src="js/Global.js"></script>
+    
+	<script type="text/javascript" src="js/boot.js"></script>
+    
+	<script type="text/javascript" src="js/preload.js"></script>
+    
+	<script type="text/javascript" src="js/menuScreen.js"></script>
+    
+	<script type="text/javascript" src="js/insScreen.js"></script>
+    
+	<script type="text/javascript" src="js/nameScreen2.js"></script>
+
+	<script type="text/javascript" src="js/game2.js"></script>
+    
+	<script type="text/javascript" src="js/gameOverScreen.js"></script>
+    
+	<script type="text/javascript" src="js/leaderBoardScreen.js"></script>
+
+	<script type="text/javascript" src="js/main.js"></script>
+
+</body>
+</html>
