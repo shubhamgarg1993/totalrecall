@@ -76,6 +76,7 @@ gameState.prototype = {
     }
     
     gameState.obj.helpButton.inputEnabled = true;
+      gameState.obj.helpButton.input.useHandCursor=true;
     gameState.obj.helpButton.alpha = 1;
    
      gameState.obj.timer.start();
@@ -136,7 +137,8 @@ gameState.prototype = {
          this['planet'+n].scale.x = 0.8;
          this['planet'+n].scale.y = 0.8;
 
-         this['planet'+n].inputEnabled = true;   
+         this['planet'+n].inputEnabled = true; 
+             this['planet'+n].input.useHandCursor=true;
          this['planet'+n].events.onInputDown.add(this.onPlanetClick, this);
          this['planet'+n].id = n;
          this['planet'+n].scale.x = 0;
@@ -157,7 +159,8 @@ gameState.prototype = {
       var planet = event;
       var element = this['element'+event.id];
        event.inputEnabled = false; 
-      
+     // event.input.useHanfCursor=true;
+     // event.input.useHanfCursor=true;
       this.selectionCount++;
       
       if(this.selectionCount === 1)
@@ -248,7 +251,9 @@ gameState.prototype = {
      {         
         _self['planet'+_self.id1].inputEnabled = true;
          _self['planet'+_self.id2].inputEnabled = true;
-         
+                 _self['planet'+_self.id1].input.useHandCursor = true;
+         _self['planet'+_self.id2].input.useHandCursor = true;
+
          _self['planet'+_self.id1].scale.x = 0.8;
          _self['planet'+_self.id2].scale.x = 0.8;
          
@@ -410,6 +415,7 @@ gameState.prototype = {
       if(this.helpCount < 3){
           
       this.helpButton.inputEnabled = true;
+          this.helpButton.input.useHandCursor=true
       this.helpButton.alpha = 1;
           
       }

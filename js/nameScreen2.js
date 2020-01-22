@@ -56,11 +56,17 @@ nameState.prototype = {
         this.input.events.onInputDown.add(this.onInputFieldClick, this);
         this.game.inputSet = this.input;
         button.alpha = 0;
-
+        this.textKeys = [];
+        this.game.UpperKeyboard = false;
         this.addUI();
 
     },
     onInputFieldClick: function () {
+
+        if (this.keybdgroup) {
+            this.keybdgroup.visible = true;
+            return;
+        }
         this.keycount = 0;
         this.game.inputName = [];
 
@@ -98,48 +104,52 @@ nameState.prototype = {
             //  this.keybdgroup.add(key)
         }
 
-        key = this.add.image(200 + 50, this.world._height - kb.height + 240, 'upimg')
+        key = this.add.sprite(200 + 50, this.world._height - kb.height + 240, 'upimg')
         this.addFunctionKey(key, 'up')
         this.upKey = key;
-
-        key = this.add.image(200 + 50, this.world._height - kb.height + 240, 'downimg')
+        this.upKey.visible = true // !this.UpperKeyboard
+        key = this.add.sprite(200 + 50, this.world._height - kb.height + 240, 'downimg')
         this.addFunctionKey(key, 'down')
-        key.visble = false;
         this.downKey = key;
+        this.downKey.visible = false // this.UpperKeyboard*/
 
         for (let i = 0; i < 7; i++) {
-            key = this.add.image(key.x + key.width + keySpacing, this.world._height - kb.height + 240, 'keyimg')
+            key = this.add.sprite(key.x + key.width + keySpacing, this.world._height - kb.height + 240, 'keyimg')
             this.addkeyText(key, "", this.keybdgroup);
 
             //this.keybdgroup.add(key)
         }
-        key = this.add.image(key.x + key.width + keySpacing, this.world._height - kb.height + 240, 'backimg')
+        key = this.add.sprite(key.x + key.width + keySpacing, this.world._height - kb.height + 240, 'backimg')
         this.addFunctionKey(key, 'back')
 
-        key = this.add.image(200 + 50, this.world._height - kb.height + 340, 'numimg')
+        key = this.add.sprite(200 + 50, this.world._height - kb.height + 340, 'numimg')
         this.addFunctionKey(key, 'num')
+        this.numKey = key;
 
+        key = this.add.sprite(200 + 50, this.world._height - kb.height + 340, 'abcimg')
+        this.addFunctionKey(key, 'abc')
+        key.visible = false;
+        this.abcKey = key;
         //this.keybdgroup.add(key)
 
-        key = this.add.image(key.x + key.width + keySpacing, this.world._height - kb.height + 340, 'keyimg')
+        key = this.add.sprite(key.x + key.width + keySpacing, this.world._height - kb.height + 340, 'keyimg')
         this.addkeyText(key, "", this.keybdgroup);
         //  this.keybdgroup.add(key)
 
-        key = this.add.image(key.x + key.width + keySpacing, this.world._height - kb.height + 340, 'spaceimg')
+        key = this.add.sprite(key.x + key.width + keySpacing, this.world._height - kb.height + 340, 'spaceimg')
         this.addFunctionKey(key, 'space')
 
         /*key.name = 'space';
         key.inputEnabled = true;
         key.input.useHandCursor=true
         key.events.onInputDown.add(this.onItemClick, this);
-
         this.keybdgroup.add(key)*/
 
-        key = this.add.image(key.x + key.width + keySpacing, this.world._height - kb.height + 340, 'keyimg')
+        key = this.add.sprite(key.x + key.width + keySpacing, this.world._height - kb.height + 340, 'keyimg')
         this.addkeyText(key, "", this.keybdgroup);
         //  this.keybdgroup.add(key)
 
-        key = this.add.image(key.x + key.width + keySpacing, this.world._height - kb.height + 340, 'enterimg')
+        key = this.add.sprite(key.x + key.width + keySpacing, this.world._height - kb.height + 340, 'enterimg')
         this.addFunctionKey(key, 'enter')
 
         //  this.keybdgroup.add(key)
@@ -256,9 +266,6 @@ nameState.prototype = {
         let keyAr = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
                         'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
                         'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.'];
-        let keyArL = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
-                        'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
-                        'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.'];
 
         var style = {
             font: '42px Arial',
@@ -266,30 +273,43 @@ nameState.prototype = {
         };
         key.name = keyAr[this.keycount];
         console.log(key.name)
-        let tt = game.add.text(key.x + key.width / 3, key.y + key.height / 4, this.UpperKeyboard ? keyAr[this.keycount++] : keyArL[this.keycount++], style);
+        let tt = game.add.text(key.x + key.width / 3, key.y + key.height / 4, keyAr[this.keycount++], style);
         this.keybdgroup.add(key)
         this.keybdgroup.add(tt);
         key.inputEnabled = true;
         key.input.useHandCursor = true;
-
+        this.textKeys.push(tt);
         key.events.onInputDown.add(this.onItemClick, key);
-
     },
+
     onItemClick(key) {
 
 
         if (key.name == 'up') {
-            this.UpperKeyboard = true;
-            this.downKey.visibility = true;
-            this.upKey.visble = false;
+            console.log('up Key pressed')
+            this.game.UpperKeyboard = true;
+            this.downKey.visible = true;
+            key.visible = false;
+
+            for (let i = 0; i < this.textKeys.length; i++) {
+                console.log(this.textKeys[i].value)
+
+                this.textKeys[i].setText(this.textKeys[i].text.toUpperCase());
+            }
             return;
         }
 
         if (key.name == 'down') {
-            this.UpperKeyboard = false;
-            this.downKey.visibility = false;
-            this.upKey.visble = true;
+            console.log('down Key pressed' + key)
+            key.visible = false;
+            this.game.UpperKeyboard = false;
+            this.upKey.visible = true;
 
+            for (let i = 0; i < this.textKeys.length; i++) {
+                console.log(this.textKeys[i].value)
+                this.textKeys[i].setText(this.textKeys[i].text.toLowerCase());
+            }
+            return;
         }
 
         if (key.name == 'space') {
@@ -303,8 +323,20 @@ nameState.prototype = {
             this.game.inputSet.setText(name)
             return;
         }
+        if (key.name == 'num') {
 
-        if (key.name == 'close') {
+            key.visible = false;
+            this.abcKey.visible = true;
+            return;
+        }
+        if (key.name == 'abc') {
+
+            key.visible = false;
+            this.numKey.visible = true;
+            return;
+        }
+
+        if (key.name == 'close' || key.name == 'enter') {
             this.keybdgroup.visible = false;
             return;
 
@@ -324,9 +356,10 @@ nameState.prototype = {
 
         if (key.name) {
             console.log(key.name);
-            this.game.inputName.push(key.name);
+            this.game.inputName.push(this.game.UpperKeyboard ? key.name : key.name.toLowerCase());
             let name = "";
             for (let i = 0; i < this.game.inputName.length; i++) {
+                //console.log(this.game.UpperKeyboard)
                 name += this.game.inputName[i];
             }
             this.game.inputSet.setText(name)
